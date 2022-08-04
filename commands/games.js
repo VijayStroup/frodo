@@ -11,12 +11,18 @@ const options = [
     label: 'Minecraft',
     emoji: '⛏️',
     value: 'minecraft'
+  },
+  {
+    label: 'Fortnite',
+    emoji: '✏️',
+    value: 'fortnite'
   }
 ]
 
 const rolesMap = {
   csgo: 'CS:GO',
-  minecraft: 'Minecraft'
+  minecraft: 'Minecraft',
+  fortnite: 'Fortnite'
 }
 
 const rolesSet = new Set(Object.keys(rolesMap))
