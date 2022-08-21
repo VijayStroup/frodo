@@ -1,5 +1,5 @@
 {
-  "name": "frodo",
+  "name": "ty",
   "version": "1.0.0",
   "description": "Discord Bot for Knights Discord Server",
   "type": "module",
@@ -16,19 +16,18 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/VijayStroup/frodo.git"
+    "url": "git+https://github.com/VijayStroup/ty.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/VijayStroup/frodo/issues"
+    "url": "https://github.com/VijayStroup/ty/issues"
   },
-  "homepage": "https://github.com/VijayStroup/frodo#readme",
+  "homepage": "https://github.com/VijayStroup/ty#readme",
   "dependencies": {
     "@discordjs/builders": "^0.6.0",
     "@discordjs/rest": "^0.1.0-canary.0",
-    "@koenie06/discord.js-music": "^1.2.9",
     "axios": "^0.24.0",
     "cron": "^1.8.2",
     "discord-api-types": "^0.22.0",
