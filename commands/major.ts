@@ -1,7 +1,12 @@
+import type {
+  CommandInteraction,
+  GuildMemberRoleManager,
+  SelectMenuInteraction
+} from 'discord.js'
 import { SlashCommandBuilder } from '@discordjs/builders'
 import { MessageActionRow, MessageSelectMenu } from 'discord.js'
 
-const options = [
+const options: { [key: string]: string | boolean }[] = [
   {
     label: 'Aerospace',
     emoji: '✈️',
@@ -56,7 +61,7 @@ const options = [
     label: 'Psychology',
     emoji: '🤯',
     value: 'Psychology'
-  }, 
+  },
   {
     label: 'Women Studies',
     emoji: '👯‍♀️',
@@ -64,7 +69,7 @@ const options = [
   }
 ]
 
-const rolesMap = {
+const rolesMap: { [key: string]: string } = {
   Aerospace: 'Aerospace',
   Business: 'Business',
   ComputerEngineering: 'Computer Engineering',
@@ -85,15 +90,15 @@ const Major = {
   builder: new SlashCommandBuilder()
     .setName('major')
     .setDescription('Select your majors.'),
-  async execute(interaction) {
-    const roles = interaction.guild.roles.cache
+  async execute(interaction: CommandInteraction) {
+    const roles = interaction.guild?.roles.cache
 
     const majorOptions = options
 
     for (const option of majorOptions) {
-      const role = roles.find(role => role.name === rolesMap[option.value])
+      const role = roles?.find(role => role.name === rolesMap[option.value as string])
       option['default'] = false
-      if (interaction.member.roles.resolve(role.id))
+      if (role && (interaction.member.roles as GuildMemberRoleManager).resolve(role.id))
         option['default'] = true
     }
 
@@ -103,29 +108,38 @@ const Major = {
           .setCustomId('major')
           .setPlaceholder('Select your majors.')
           .setMaxValues(3)
-          .addOptions(majorOptions)
+          .addOptions(majorOptions as any)
       )
 
-    await interaction.reply({ content: 'Select majors to add.', components: [row], ephemeral: true })
+    await interaction.reply({
+      content: 'Select majors to add.',
+      components: [row],
+      ephemeral: true
+    })
   },
-  async onSelect(interaction) {
-    const roles = interaction.guild.roles.cache
+  async onSelect(interaction: SelectMenuInteraction) {
+    const roles = interaction.guild?.roles.cache
     const valueSet = new Set(interaction.values)
     const notSelected = new Set([...rolesSet].filter(x => !valueSet.has(x)))
 
     // roles to add
     valueSet.forEach(async v => {
-      const role = roles.find(role => role.name === rolesMap[v])
-      await interaction.member.roles.add(role)
+      const role = roles?.find(role => role.name === rolesMap[v])
+      if (role)
+        await (interaction.member.roles as GuildMemberRoleManager).add(role)
     })
 
     // roles to remove
     notSelected.forEach(async v => {
-      const role = roles.find(role => role.name === rolesMap[v])
-      await interaction.member.roles.remove(role)
+      const role = roles?.find(role => role.name === rolesMap[v])
+      if (role)
+        await (interaction.member.roles as GuildMemberRoleManager).remove(role)
     })
 
-    await interaction.update({ content: `You are now part of the ${interaction.values.join(', ')} majors.`, components: [] })
+    await interaction.update({
+      content: `You are now part of the ${interaction.values.join(', ')} majors.`,
+      components: []
+    })
   }
 }
 

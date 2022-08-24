@@ -1,12 +1,9 @@
+import type { Guild } from 'discord.js'
 import fs from 'fs'
-import path from 'path'
-import { fileURLToPath } from 'url'
 import { CronJob } from 'cron'
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url))
-
-const StartJobs = async (guild) => {
-  const jobFiles = fs.readdirSync(`${__dirname}/../jobs`).filter(file => file.endsWith('.js'))
+const StartJobs = async (guild: Guild) => {
+  const jobFiles = fs.readdirSync(`${__dirname}/../jobs`).filter(file => file.endsWith('.ts'))
   for (const file of jobFiles) {
     const event = await import(`${__dirname}/../jobs/${file}`)
     const channel = await guild.channels.cache.find(chan => chan.name === event.default.channel)

@@ -1,20 +1,23 @@
+import type { Client, Guild } from 'discord.js'
 import { config } from 'dotenv'
-import getCommands from '../utils/getCommands.js'
-import StartJobs from '../utils/startJobs.js'
+// import getCommands from '../utils/getCommands.js'
+import StartJobs from '../utils/startJobs'
 
 config()
 
 const Ready = {
   name: 'ready',
   once: true,
-  async execute(client) {
+  async execute(client: Client) {
+    if (!client.user) throw new Error('Client user is null')
+
     if (!client.application?.owner) await client.application?.fetch()
 
-    const guild = await client.guilds.cache.get(process.env.GUILD_ID)
+    const guild = await client.guilds.cache.get(process.env.GUILD_ID ?? '') as Guild
 
-    const commands = await getCommands()
-    const guildCommands = await guild.commands.fetch()
-    const guildRoles = await guild.roles.cache
+    // const commands = await getCommands()
+    // const guildCommands = await guild.commands.fetch()
+    // const guildRoles = await guild.roles.cache
 
     // DISCORD CHANGED THIS TO CORRECT PERMISSIONS IN THE SERVER
     // correct command permissions

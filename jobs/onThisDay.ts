@@ -1,14 +1,16 @@
+import type { TextChannel } from 'discord.js'
 import axios from 'axios'
 import { MessageActionRow, MessageButton, MessageEmbed } from 'discord.js'
+import colors from '../utils/colors'
 
 const urlTemplate = 'https://byabbe.se/on-this-day/MONTH/DAY/events.json'
 
-const FactOfTheDay = {
+const OnThisDay = {
   cronPattern: '0 9 * * *', // every day at 9:00
   channel: '🤓｜random',
-  async execute(channel) {
+  async execute(channel: TextChannel) {
     const d = new Date()
-    const url = urlTemplate.replace('MONTH', d.getUTCMonth() + 1).replace('DAY', d.getUTCDate())
+    const url = urlTemplate.replace('MONTH', `${d.getUTCMonth() + 1}`).replace('DAY', `${d.getUTCDate()}`)
     const res = await axios.get(url)
 
     if (res.status !== 200) {
@@ -20,10 +22,10 @@ const FactOfTheDay = {
     const event = res.data.events[Math.floor(Math.random() * res.data.events.length)]
 
     const factEmbed = new MessageEmbed()
-      .setColor('#4990E2')
+      .setColor(colors.blue)
       .setTitle(`${d.getUTCMonth() + 1}/${d.getUTCDate()}/${event.year}`)
       .setAuthor('On This Day')
-      .setThumbnail('https://i.imgur.com/udziL5c.png')
+      .setThumbnail('https://i.imgur.com/B6QSudr.png')
       .setDescription(event.description)
       .setTimestamp()
 
@@ -41,4 +43,4 @@ const FactOfTheDay = {
   }
 }
 
-export default FactOfTheDay
+export default OnThisDay

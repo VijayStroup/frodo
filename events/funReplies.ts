@@ -1,10 +1,12 @@
+import type { Message } from 'discord.js'
+
 const FunReplies = {
   name: 'messageCreate',
-  async execute(message) {
+  async execute(message: Message) {
     if (message.author.bot) return
 
-    const coin = (Math.floor(Math.random() * 2) == 0)
     const loweredMessage = message.content.toLowerCase()
+    const coin = (Math.floor(Math.random() * 2) == 0)
 
     if (coin) {
       if (loweredMessage.split(' ')[0] === 'who')
@@ -13,9 +15,14 @@ const FunReplies = {
         await message.reply('yo')
       else if (loweredMessage === 'based')
         await message.reply('based on what?')
-      else if (`${loweredMessage.split(' ')[0]} ${loweredMessage.split(' ')[1]}` === 'homie said')
-        await message.reply({ content: `homie said "${message.content.length <= 1987 ? message.content : 'that message too long homie'}"`, allowedMentions: {parse: []} }) 
-      else if (message.mentions.has(message.client.user.id))
+      else if (`${loweredMessage.split(' ')[0]} ${loweredMessage.split(' ')[1]}` === 'homie said') {
+        if (message.content.length <= 1987)
+          await message.reply({
+            content: `homie said "${message.content}"`,
+            allowedMentions: { parse: [] }
+          })
+      }
+      else if (message.client.user && message.mentions.has(message.client.user.id))
         await message.reply('bing chilling')
       else if (loweredMessage === 'poggers in chat')
         await message.reply('poggers')
