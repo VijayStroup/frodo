@@ -3,12 +3,12 @@
   "version": "1.0.0",
   "description": "Discord Bot for Knights Discord Server",
   "engines": {
-    "node": "16.8.0"
+    "node": "16.16.0"
   },
   "main": "index.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "npx ts-node deployCommands.ts && rm -rf dist/ && tsc --project . && node dist/app.js > log.txt 2>&1 &",
+    "start": "npx ts-node deployCommands.ts && npx ts-node index.ts > log.txt 2>&1",
     "dev": "nodemon .",
     "register": "npx ts-node deployCommands.ts",
     "lint": "eslint ."
