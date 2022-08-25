@@ -1,8 +1,6 @@
 import type { TextChannel } from 'discord.js'
-import dayjs from 'dayjs'
-import timezone from 'dayjs/plugin/timezone'
-
-dayjs.extend(timezone)
+import 'moment-timezone';
+import moment from 'moment'
 
 const bedtimes: { [key: number]: string[] } = {
   0: ['209837832230010881'],
@@ -16,7 +14,7 @@ const Bedtimes = {
   cronPattern: '0 * * * *', // every hour at minute 0
   channel: '💬｜general',
   async execute(channel: TextChannel) {
-    const hour = dayjs().tz('America/New_York').hour()
+    const hour = moment().tz('America/New_York').hour()
 
     if (bedtimes[hour]) {
       for (const id of bedtimes[hour])

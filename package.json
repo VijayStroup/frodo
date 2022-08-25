@@ -8,7 +8,7 @@
   "main": "index.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "npx ts-node deployCommands.ts && npx ts-node index.ts > log.txt 2>&1",
+    "start": "npx ts-node deployCommands.ts && npx ts-node index.ts > log.txt 2>&1 &",
     "dev": "nodemon .",
     "register": "npx ts-node deployCommands.ts",
     "lint": "eslint ."
@@ -29,10 +29,10 @@
     "@discordjs/rest": "^0.1.0-canary.0",
     "axios": "^0.24.0",
     "cron": "^1.8.2",
-    "dayjs": "^1.11.5",
     "discord-api-types": "^0.22.0",
     "discord.js": "^13.1.0",
-    "dotenv": "^10.0.0"
+    "dotenv": "^10.0.0",
+    "moment-timezone": "^0.5.33"
   },
   "devDependencies": {
     "@types/cron": "^2.0.0",
