@@ -1,4 +1,4 @@
-import type { Interaction } from 'discord.js'
+import type { Interaction, TextChannel } from 'discord.js'
 import getCommands from '../utils/getCommands'
 
 let commands: { [key: string]: any }
@@ -13,17 +13,11 @@ const InteractionCreate = {
       if (!command) return
 
       // check if valid channel
-      if (command.channels && !command.channels.includes(interaction.channel?.id)) {
-        if (typeof command.channels === 'string')
-          await interaction.reply({
-            content: `You can only use this command in ${command.channels}.`,
-            ephemeral: true
-          })
-        else
-          await interaction.reply({
-            content: `You can only use this command in ${command.channels.join(', ')}.`,
-            ephemeral: true
-          })
+      if (command.channels && !command.channels.includes((interaction.channel as TextChannel)?.name)) {
+        await interaction.reply({
+          content: `You can only use this command in ${command.channels.join(', ')}.`,
+          ephemeral: true
+        })
         return
       }
 
