@@ -12,7 +12,7 @@ interface Packet {
   }
 }
 
-const threshold = 1
+const threshold = 8
 
 const Pin = {
   name: 'raw',
