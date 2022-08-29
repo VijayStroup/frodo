@@ -7,7 +7,7 @@ config()
 const setupEvents = async () => {
   const eventFiles = fs
     .readdirSync('./events')
-    .filter((file) => file.endsWith('.ts'))
+    .filter((file) => file.endsWith(process.env.P ? '.js' : '.ts'))
   for (const file of eventFiles) {
     const event = await import(`./events/${file}`)
     if (event.default.once)

@@ -9,7 +9,7 @@ const gatherCommands = async () => {
   const commands = []
   const commandFiles = fs
     .readdirSync('./commands')
-    .filter((file) => file.endsWith('.ts'))
+    .filter((file) => file.endsWith(process.env.P ? '.js' : '.ts'))
 
   for (const file of commandFiles) {
     const command = await import(`./commands/${file}`)

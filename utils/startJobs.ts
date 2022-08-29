@@ -3,7 +3,7 @@ import fs from 'fs'
 import { CronJob } from 'cron'
 
 const StartJobs = async (guild: Guild) => {
-  const jobFiles = fs.readdirSync(`${__dirname}/../jobs`).filter(file => file.endsWith('.ts'))
+  const jobFiles = fs.readdirSync(`${__dirname}/../jobs`).filter(file => file.endsWith(process.env.P ? '.js' : '.ts'))
   for (const file of jobFiles) {
     const event = await import(`${__dirname}/../jobs/${file}`)
     const channel = await guild.channels.cache.find(chan => chan.name === event.default.channel)
