@@ -8,10 +8,13 @@
   "main": "index.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "npx ts-node deployCommands.ts && npx ts-node index.ts > log.txt 2>&1 &",
+    "build": "tsc",
+    "lint": "eslint .",
     "dev": "nodemon .",
-    "register": "npx ts-node deployCommands.ts",
-    "lint": "eslint ."
+    "dev:register": "npx ts-node deployCommands.ts",
+    "dev:start": "npx ts-node deployCommands.ts && npx ts-node index.ts > log.txt 2>&1 &",
+    "register": "cd build && P=1 node deployCommands.js",
+    "start": "cd build && P=1 node index.js"
   },
   "repository": {
     "type": "git",
@@ -39,6 +42,7 @@
     "@types/node": "^18.7.11",
     "eslint": "^7.32.0",
     "nodemon": "^2.0.12",
+    "prisma": "^4.2.1",
     "ts-node": "^10.9.1",
     "typescript": "^4.7.4"
   }
