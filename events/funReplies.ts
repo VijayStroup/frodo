@@ -7,6 +7,12 @@ const FunReplies = {
 
     const loweredMessage = message.content.toLowerCase()
     const coin = (Math.floor(Math.random() * 2) == 0)
+    const fetch = require('node-fetch');
+
+    const url = `https://g.tenor.com/v1/search?q=${loweredMessage + " girl"}&key=CQ2A3QONWOOL`
+    const response = await fetch(url);
+    const json = await response.json();
+    const index = Math.floor(Math.random() * json.results.length);
 
     if (coin) {
       if (loweredMessage.split(' ')[0] === 'who')
@@ -15,6 +21,8 @@ const FunReplies = {
         await message.reply('yo')
       else if (loweredMessage === 'based')
         await message.reply('based on what?')
+      else if (loweredMessage.split(' ')[0] === 'goth')
+        await message.reply(json.results[index].url)
       else if (`${loweredMessage.split(' ')[0]} ${loweredMessage.split(' ')[1]}` === 'homie said') {
         if (message.content.length <= 1987)
           await message.reply({
