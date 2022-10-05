@@ -20,6 +20,10 @@ const GothReplies = {
     
         const url = `https://g.tenor.com/v1/search?q=${loweredMessage + " girl"}&key=${process.env.KEY}`
         const response = await fetch(url);
+
+        if (response.status !== 200) 
+          return
+          
         const json = await response.json();
         const index = Math.floor(Math.random() * json.results.length);
     
