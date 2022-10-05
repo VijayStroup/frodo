@@ -37,7 +37,7 @@ const Birthday = {
   async execute(interaction: CommandInteraction, message: Message) {
     const str = interaction.options.getString('date')
     const momentVariable = moment(str, 'MM/DD/YYYY')
-    var dateFormatted = momentVariable.format('MM/DD/YYYY')
+    var dateFormatted = momentVariable.format('MM/DD')
     const userId = interaction.member.user.id
     const date = new Date(dateFormatted)
 

@@ -24,7 +24,7 @@ const birthdayOfTheDay = {
   channel: 'announcements',
   async execute(channel: TextChannel) {
     const momentVariable = moment(new Date, 'MM/DD/YYYY')
-    var dateFormatted = momentVariable.format('MM/DD/YYYY')
+    var dateFormatted = momentVariable.format('MM/DD')
     const date = new Date(dateFormatted)
 
     const arrayIds = (await getBdayUsers(date)).slice();
