@@ -15,10 +15,15 @@ const ReadOnly = {
     if (!target) return
 
     const roles = interaction.guild?.roles.cache
+    const hasReadOnly = (target.roles).cache.some(role => role.name === 'readonly')
 
-    await (target.roles as GuildMemberRoleManager).add(roles?.find(role => role.name === 'readonly') ?? '')
-
-    await interaction.reply({ content: `<@${target.user.id}> is now in readonly mode.` })
+    if (hasReadOnly) {
+      await (target.roles as GuildMemberRoleManager).remove(roles?.find(role => role.name === 'readonly') ?? '')
+        .then(() => interaction.reply({ content: `<@${target.user.id}> has been removed from readonly mode.` }))
+    } else {
+      await (target.roles as GuildMemberRoleManager).add(roles?.find(role => role.name === 'readonly') ?? '')
+        .then(() => interaction.reply({ content: `<@${target.user.id}> is now in readonly mode.` }))
+    }
   }
 }
 

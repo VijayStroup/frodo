@@ -30,6 +30,8 @@ const FunReplies = {
         await message.reply('bing bong')
       else if (loweredMessage === 'stop')
         await message.reply('no you')
+      else if (loweredMessage === 'we go gym' || loweredMessage.includes('jim') || loweredMessage.includes('gym'))
+        await message.reply('https://tenor.com/view/we-go-gym-we-go-gym-now-lex-little-we-go-jim-gif-26181704')
     }
   }
 }
