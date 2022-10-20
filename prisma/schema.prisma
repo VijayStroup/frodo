@@ -9,19 +9,6 @@ datasource db {
   referentialIntegrity = "prisma"
 }
 
-model Post {
-  id        String   @id @default(uuid())
-  createdAt DateTime @default(now())
-  updatedAt DateTime
-  title     String   @db.VarChar(255)
-  content   String?
-  published Boolean  @default(false)
-  author    User     @relation(fields: [authorId], references: [id])
-  authorId  String
-
-  @@index([authorId])
-}
-
 model User {
   id        String    @id @default(uuid())
   discordId String    @unique
