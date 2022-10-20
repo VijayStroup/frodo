@@ -9,30 +9,16 @@ datasource db {
   referentialIntegrity = "prisma"
 }
 
-model Post {
-  id        String   @id @default(uuid())
-  createdAt DateTime @default(now())
-  updatedAt DateTime
-  title     String   @db.VarChar(255)
-  content   String?
-  published Boolean  @default(false)
-  author    User     @relation(fields: [authorId], references: [id])
-  authorId  String
-
-  @@index([authorId])
-}
-
 model User {
-  id        String    @id @default(uuid())
+  id        String    @id @default(cuid())
   discordId String    @unique
-  posts     Post[]
-  Bday      Birthday?
+  birthday  Birthday?
 
   @@index([discordId])
 }
 
 model Birthday {
-  id        String   @id @default(uuid())
+  id        String   @id @default(cuid())
   user      User     @relation(fields: [discordId], references: [id])
   discordId String   @unique
   birthday  DateTime

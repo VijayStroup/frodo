@@ -10,7 +10,7 @@ async function setBday(userId, date) {
       discordId: userId
     },
     update: {
-      Bday: {
+      birthday: {
         update: {
           birthday: date
         }
@@ -18,7 +18,7 @@ async function setBday(userId, date) {
     },
     create: {
       discordId: userId,
-      Bday: {
+      birthday: {
         create: {
           birthday:  date,
         }

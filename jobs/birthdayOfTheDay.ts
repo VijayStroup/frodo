@@ -5,7 +5,7 @@ async function getBdayUsers(date)
 {
   const users = await prisma.user.findMany({
     where: {
-        Bday: {
+        birthday: {
           birthday: date
         }
     }
@@ -21,7 +21,7 @@ async function getBdayUsers(date)
 
 const birthdayOfTheDay = {
   cronPattern: '0 12 * * *', // every day at 12:00
-  channel: 'announcements',
+  channel: '💬｜general',
   async execute(channel: TextChannel) {
     const momentVariable = moment(new Date, 'MM/DD/YYYY')
     var dateFormatted = momentVariable.format('MM/DD')
