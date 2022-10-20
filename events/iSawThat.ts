@@ -1,4 +1,4 @@
-import { Message, TextChannel } from 'discord.js'
+import type { Message, TextChannel } from 'discord.js'
 
 const ignored = ['864311867765686332', '369212248553422850']
 
@@ -11,12 +11,17 @@ const ISawThat = {
       channel => channel.name === 'logs'
     ) as TextChannel
 
+    if (!logChannel) {
+      await message.channel.send(`i saw that <@${message.author.id}>`)
+      return;
+    }
+
     if (message.attachments.size > 0) {
       await message.attachments.forEach(att => logChannel.send(att.proxyURL)
-        .then(() => logChannel.send(`The message attachment(s) with content "${message.content}" by ${message.author} [${message.author.id}] was deleted.`)))
+        .then(() => logChannel.send(`DELETE from ${message.author}\n\`${message.content}\'`)))
       await message.channel.send(`i saw that <@${message.author.id}>`)
     } else {
-      await logChannel.send(`The message "${message.content}" by ${message.author} [${message.author.id}] was deleted.`)
+      await logChannel.send(`DELETE from ${message.author}\n\`${message.content}\'`)
         .then(() => message.channel.send(`i saw that <@${message.author.id}>`))
     }
   }
