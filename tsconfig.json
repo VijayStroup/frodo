@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "moduleResolution": "Node",
+    "target": "ES2020",
+    "strictNullChecks": false,
+    "strictFunctionTypes": true,
+    "sourceMap": true,
+    "strict": false,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "outDir": "./build",
+    "lib": ["esnext"]
+  },
+  "exclude": ["node_modules", "**/node_modules/*"]
+}
