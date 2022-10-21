@@ -13,7 +13,7 @@ const ISawThat = {
 
     if (!logChannel) {
       await message.channel.send(`i saw that <@${message.author.id}>`)
-      return;
+      return
     }
 
     if (message.attachments.size > 0) {
