@@ -1,5 +1,9 @@
-import { TextChannel } from "discord.js"
-import moment from "moment";
+import { TextChannel } from 'discord.js'
+import moment from 'moment';
+
+const momentVariable = moment(new Date, 'MM/DD/YYYY')
+const dateFormatted = momentVariable.format('MM/DD')
+const date = new Date(dateFormatted)
 
 async function getBdayUsers(date) 
 {
@@ -10,30 +14,18 @@ async function getBdayUsers(date)
         }
     }
   })
-  
-  const arrayIds = []
-  
-  for (let i = 0; i < users.length; i++)
-    arrayIds.push(users[i].discordId)
 
-  return arrayIds
+  return users
 }
 
 const birthdayOfTheDay = {
   cronPattern: '0 12 * * *', // every day at 12:00
   channel: '💬｜general',
   async execute(channel: TextChannel) {
-    const momentVariable = moment(new Date, 'MM/DD/YYYY')
-    var dateFormatted = momentVariable.format('MM/DD')
-    const date = new Date(dateFormatted)
-
-    const arrayIds = (await getBdayUsers(date)).slice();
-
-    if (arrayIds[0] === undefined)
-      return;
+    const users = await getBdayUsers(date)
     
-    for (let i = 0; i < arrayIds.length; i++)
-      await channel.send(`Wish <@${arrayIds[i]}> a happy birthday!`)
+    for (const user of users)
+      await channel.send(`Wish <@${user.discordId}> a happy birthday!`)
   }
 }
 

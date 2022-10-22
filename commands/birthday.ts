@@ -4,27 +4,24 @@ import moment from 'moment-timezone'
 import prisma from '../utils/prisma'
 
 async function setBday(userId, date) {
-  if (userId === null || date === null) return
-  const user = await prisma.user.upsert({
-    where: {
-      discordId: userId
-    },
-    update: {
-      birthday: {
-        update: {
-          birthday: date
+  if (userId === null || date === null) 
+    return 
+
+  try {
+    const user = await prisma.user.create({
+      data: {
+        discordId: userId,      
+        birthday: {
+          create: {
+            birthday:  date,
+          }
         }
       }
-    },
-    create: {
-      discordId: userId,
-      birthday: {
-        create: {
-          birthday:  date,
-        }
-      }
-    }
-  })
+    })
+
+  } catch (PrismaClientKnownRequestError) {
+    return -1
+  }
 }
 
 const Birthday = {
@@ -37,17 +34,21 @@ const Birthday = {
   async execute(interaction: CommandInteraction, message: Message) {
     const str = interaction.options.getString('date')
     const momentVariable = moment(str, 'MM/DD/YYYY')
-    var dateFormatted = momentVariable.format('MM/DD')
-    const userId = interaction.member.user.id
+    const dateFormatted = momentVariable.format('MM/DD')
     const date = new Date(dateFormatted)
+    const userId = interaction.member.user.id
+    var content = `The inputted date is invalid. Please try again.`
 
-    if (Date.toString() !== 'Invalid Date')
-      setBday(userId, date);
-    else
-      dateFormatted = 'an invalid date'
+    if (dateFormatted !== 'Invalid date'){
+      var check = setBday(userId, date)
+      if (await check === -1)
+        content = `Your birthday has already been set.`
+      else
+        content = `Your birthday has been set for ${dateFormatted}.`
+    }
 
     await interaction.reply({
-      content: `Your birthday has been set for ${dateFormatted}.`,
+      content: `${content}`,
       ephemeral: true
     })
   }
