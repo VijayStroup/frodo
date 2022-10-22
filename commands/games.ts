@@ -13,21 +13,27 @@ const options: { [key: string]: string | boolean }[] = [
     value: 'csgo'
   },
   {
+    label: 'Fortnite',
+    emoji: '✏️',
+    value: 'fortnite'
+  },
+  {
     label: 'Minecraft',
     emoji: '⛏️',
     value: 'minecraft'
   },
   {
-    label: 'Fortnite',
-    emoji: '✏️',
-    value: 'fortnite'
-  }
+    label: 'Overwatch',
+    emoji: '🛡️',
+    value: 'overwatch'
+  },
 ]
 
 const rolesMap: { [key: string]: string } = {
   csgo: 'CS:GO',
+  fortnite: 'Fortnite',
   minecraft: 'Minecraft',
-  fortnite: 'Fortnite'
+  overwatch: 'Overwatch',
 }
 
 const rolesSet = new Set(Object.keys(rolesMap))
