@@ -1,6 +1,6 @@
 import type { Message, TextChannel } from 'discord.js'
 
-const ignored = ['864311867765686332', '369212248553422850']
+const ignored = ['864311867765686332', '536716152680873988']
 
 const ISawThat = {
   name: 'messageDelete',
