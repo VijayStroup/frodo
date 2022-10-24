@@ -7,20 +7,21 @@ async function updateBday(userId, date) {
   if (userId === null || date === null) return
   const user = await prisma.user.upsert({
     where: {
-    discordId: userId
+      discordId: userId
     },
     update: {
       birthday: {
-          update: {
+        update: {
           birthday: date
-          }
+        }
       }
     },
     create: {
       discordId: userId,
       birthday: {
         create: {
-        birthday:  date,
+          discordId: userId,
+          birthday: date,
         }
       }
     }
@@ -35,19 +36,22 @@ const BirthdayUpdate = {
       option.setName('user').setDescription('User.').setRequired(true)
     )
     .addStringOption((option) =>
-      option.setName('date').setDescription('Date.').setRequired(true)
+      option.setName('month').setDescription('month').setRequired(true)
+    )
+    .addStringOption((option) =>
+      option.setName('day').setDescription('day').setRequired(true)
     ),
   async execute(interaction: CommandInteraction, message: Message) {
     const target = interaction.options.getMember('user') as GuildMember
-    const str = interaction.options.getString('date')
-    const momentVariable = moment(str, 'MM/DD/YYYY')
-    const dateFormatted = momentVariable.format('MM/DD')
+    const month = interaction.options.getString('month')
+    const day = interaction.options.getString('day')
+    const dateFormatted = moment(month + day, 'MM/DD').format('MM/DD')
     const date = new Date(dateFormatted)
     const userId = target.user.id
-    var content = `The inputted date is invalid. Please try again.`
+    let content = `The inputted date is invalid. Please try again.`
 
-    if (dateFormatted !== 'Invalid date'){
-      updateBday(userId, date)
+    if (dateFormatted !== 'Invalid date') {
+      await updateBday(userId, date)
       content = `The birthday for ${target.user.username} has been updated to ${dateFormatted}.`
     }
 

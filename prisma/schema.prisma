@@ -19,7 +19,7 @@ model User {
 
 model Birthday {
   id        String   @id @default(cuid())
-  user      User     @relation(fields: [discordId], references: [id])
+  user      User     @relation(fields: [id], references: [id])
   discordId String   @unique
   birthday  DateTime
 
