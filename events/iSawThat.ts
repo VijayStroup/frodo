@@ -18,10 +18,10 @@ const ISawThat = {
 
     if (message.attachments.size > 0) {
       await message.attachments.forEach(att => logChannel.send(att.proxyURL)
-        .then(() => logChannel.send(`DELETE from ${message.author}\n\`${message.content}\``)))
+        .then(() => logChannel.send(`DELETE from ${message.author} in ${message.channel}\n\`${message.content}\``)))
       await message.channel.send(`i saw that <@${message.author.id}>`)
     } else {
-      await logChannel.send(`DELETE from ${message.author}\n\`${message.content}\``)
+      await logChannel.send(`DELETE from ${message.author} in ${message.channel}\n\`${message.content}\``)
         .then(() => message.channel.send(`i saw that <@${message.author.id}>`))
     }
   }
