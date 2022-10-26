@@ -1,0 +1,27 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["referentialIntegrity"]
+}
+
+datasource db {
+  provider             = "mysql"
+  url                  = env("DATABASE_URL")
+  referentialIntegrity = "prisma"
+}
+
+model User {
+  id        String    @id @default(cuid())
+  discordId String    @unique
+  birthday  Birthday?
+
+  @@index([discordId])
+}
+
+model Birthday {
+  id        String   @id @default(cuid())
+  user      User     @relation(fields: [id], references: [id])
+  discordId String   @unique
+  birthday  DateTime
+
+  @@index([birthday])
+}
