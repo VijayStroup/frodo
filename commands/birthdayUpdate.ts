@@ -13,7 +13,7 @@ async function updateBday(userId, date) {
       }
     })
 
-    if (user === undefined) {
+    if (!user) {
       const user = await prisma.user.create({
         data: {
           discordId: userId
@@ -27,7 +27,7 @@ async function updateBday(userId, date) {
       }
     })
 
-    if (birthday === undefined) {
+    if (!birthday) {
       const user = await prisma.user.update({
         where: {
           discordId: userId
