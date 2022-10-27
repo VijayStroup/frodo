@@ -5,27 +5,60 @@ import prisma from '../utils/prisma'
 
 async function updateBday(userId, date) {
   if (userId === null || date === null) return
-  const user = await prisma.user.upsert({
-    where: {
-      discordId: userId
-    },
-    update: {
-      birthday: {
-        update: {
-          birthday: date
-        }
+
+  try {
+    const user = await prisma.user.findFirst({
+      where: {
+        discordId: userId
       }
-    },
-    create: {
-      discordId: userId,
-      birthday: {
-        create: {
-          discordId: userId,
-          birthday: date,
+    })
+
+    if (user === undefined) {
+      const user = await prisma.user.create({
+        data: {
+          discordId: userId
         }
-      }
+      })
     }
-  })
+
+    const birthday = await prisma.birthday.findFirst({
+      where: {
+        discordId: userId
+      }
+    })
+
+    if (birthday === undefined) {
+      const user = await prisma.user.update({
+        where: {
+          discordId: userId
+        },
+        data: {
+          birthday: {
+            create: {
+              discordId: userId,
+              birthday: date
+            }
+          }
+        }
+      })
+    } else {
+      const user = await prisma.user.update({
+        where: {
+          discordId: userId
+        },
+        data: {
+          birthday: {
+            update: {
+              discordId: userId,
+              birthday: date
+            }
+          }
+        }
+      })
+    }
+  } catch (error) {
+    return -1
+  }
 }
 
 const BirthdayUpdate = {
@@ -51,7 +84,7 @@ const BirthdayUpdate = {
     let content = `The inputted date is invalid. Please try again.`
 
     if (dateFormatted !== 'Invalid date') {
-      await updateBday(userId, date)
+      const check = await updateBday(userId, date)
       content = `The birthday for ${target.user.username} has been updated to ${dateFormatted}.`
     }
 

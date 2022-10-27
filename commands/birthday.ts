@@ -4,23 +4,45 @@ import moment from 'moment-timezone'
 import prisma from '../utils/prisma'
 
 async function setBday(userId, date) {
-  if (userId === null || date === null)
-    return
+  if (userId === null || date === null) return
 
   try {
-    const user = await prisma.user.create({
-      data: {
-        discordId: userId,
-        birthday: {
-          create: {
-            discordId: userId,
-            birthday: date,
-          }
-        }
+    const user = await prisma.user.findFirst({
+      where: {
+        discordId: userId
       }
     })
 
-  } catch (PrismaClientKnownRequestError) {
+    if (user === undefined) {
+      const user = await prisma.user.create({
+        data: {
+          discordId: userId
+        }
+      })
+    }
+
+    const birthday = await prisma.birthday.findFirst({
+      where: {
+        discordId: userId
+      }
+    })
+
+    if (birthday === undefined) {
+      const user = await prisma.user.update({
+        where: {
+          discordId: userId
+        },
+        data: {
+          birthday: {
+            create: {
+              discordId: userId,
+              birthday: date
+            }
+          }
+        }
+      })
+    }
+  } catch (error) {
     return -1
   }
 }
