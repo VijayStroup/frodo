@@ -38,7 +38,7 @@ const Top = {
       )
       pointsEmbed.addField(
         `${fetchUser.username}#${fetchUser.discriminator}`,
-        `${user.points} points`,
+        `${user.points} ${user.points === 1 ? 'point' : 'points'}`,
         true
       )
     }
