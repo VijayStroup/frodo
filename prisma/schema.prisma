@@ -19,10 +19,11 @@ model User {
 }
 
 model Birthday {
-  id       String   @id @default(cuid())
-  user     User     @relation(fields: [userId], references: [id])
-  userId   String   @unique
-  birthday DateTime
+  id          String   @id @default(cuid())
+  user        User     @relation(fields: [userId], references: [id])
+  userId      String   @unique
+  birthday    DateTime
+  setBirthday Boolean?
 
   @@index([birthday, userId])
 }

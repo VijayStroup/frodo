@@ -3,32 +3,36 @@ import { SlashCommandBuilder } from '@discordjs/builders'
 import moment from 'moment-timezone'
 import prisma from '../utils/prisma'
 
-async function setBday(discordId, date) {
-  if (discordId === null || date === null) return
+async function setBday(userId, date) {
+  if (userId === null || date === null) return
 
   try {
     const user = await prisma.user.upsert({
       where: {
-        discordId: discordId
+        discordId: userId
       },
-      update: {
-      },
+      update: {},
       create: {
-        discordId: discordId
+        discordId: userId
       }
     })
 
     const birthday = await prisma.birthday.upsert({
       where: {
-        userId: discordId
+        userId: user.id
       },
       update: {
+        setBirthday: true
       },
       create: {
         userId: user.id,
-        birthday: date
+        birthday: date,
+        setBirthday: false
       }
     })
+
+    if (birthday.setBirthday)
+      return -1
 
   } catch (error) {
     return -1

@@ -20,7 +20,6 @@ async function incrementPoints(userId) {
         discordId: userId,
         points: {
           create: {
-            discordId: userId,
             points: 1
           }
         }

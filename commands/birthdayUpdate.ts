@@ -2,6 +2,13 @@ import { CommandInteraction, GuildMember, Message, User } from 'discord.js'
 import { SlashCommandBuilder } from '@discordjs/builders'
 import moment from 'moment-timezone'
 import prisma from '../utils/prisma'
+import { create } from 'domain'
+
+async function printALL() {
+  const birthday = await prisma.birthday.findMany({})
+
+  console.log(birthday)
+}
 
 async function updateBday(userId, date) {
   if (userId === null || date === null) return
@@ -19,7 +26,7 @@ async function updateBday(userId, date) {
 
     const birthday = await prisma.birthday.upsert({
       where: {
-        userId: userId
+        userId: user.id
       },
       update: {
         birthday: date
@@ -29,6 +36,7 @@ async function updateBday(userId, date) {
         birthday: date
       }
     })
+
   } catch (error) {
     return -1
   }
@@ -58,6 +66,7 @@ const BirthdayUpdate = {
 
     if (dateFormatted !== 'Invalid date') {
       const check = await updateBday(discordId, date)
+      printALL()
       content = `The birthday for ${target.user.username} has been updated to ${dateFormatted}.`
     }
 
