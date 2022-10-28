@@ -4,7 +4,7 @@ import { SlashCommandBuilder } from '@discordjs/builders'
 const Speak = {
   builder: new SlashCommandBuilder()
     .setName('speak')
-    .setDescription('Make Frodo speak.')
+    .setDescription('Make Tyrone speak.')
     .addStringOption((option) =>
       option.setName('message').setDescription('Message.').setRequired(true)
     ),
