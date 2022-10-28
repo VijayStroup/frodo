@@ -31,9 +31,7 @@ async function setBday(userId, date) {
       }
     })
 
-    if (birthday.setBirthday)
-      return -1
-
+    if (birthday.setBirthday) return -1
   } catch (error) {
     return -1
   }

@@ -11,7 +11,7 @@ async function minusPoints(discordId) {
       },
       update: {},
       create: {
-        discordId: discordId,
+        discordId: discordId
       }
     })
 
@@ -19,8 +19,7 @@ async function minusPoints(discordId) {
       where: {
         userId: user.id
       },
-      update: {
-      },
+      update: {},
       create: {
         userId: user.id,
         points: 1
@@ -37,8 +36,7 @@ async function minusPoints(discordId) {
         }
       })
     }
-  } catch (PrismaClientKnownRequestError) {
-  }
+  } catch (PrismaClientKnownRequestError) { }
 }
 
 const Points = {

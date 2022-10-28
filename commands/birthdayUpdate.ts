@@ -2,7 +2,6 @@ import { CommandInteraction, GuildMember, Message, User } from 'discord.js'
 import { SlashCommandBuilder } from '@discordjs/builders'
 import moment from 'moment-timezone'
 import prisma from '../utils/prisma'
-import { create } from 'domain'
 
 async function printALL() {
   const birthday = await prisma.birthday.findMany({})
@@ -36,7 +35,6 @@ async function updateBday(userId, date) {
         birthday: date
       }
     })
-
   } catch (error) {
     return -1
   }
