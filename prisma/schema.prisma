@@ -10,7 +10,7 @@ datasource db {
 }
 
 model User {
-  id        String    @id @default(cuid())
+  id        String    @id @unique @default(cuid())
   discordId String    @unique
   birthday  Birthday?
   points    Points?
@@ -19,7 +19,7 @@ model User {
 }
 
 model Birthday {
-  id          String   @id @default(cuid())
+  id          String   @id @unique @default(cuid())
   user        User     @relation(fields: [userId], references: [id])
   userId      String   @unique
   birthday    DateTime
@@ -29,10 +29,10 @@ model Birthday {
 }
 
 model Points {
-  id     String @id @default(cuid())
+  id     String @id @unique @default(cuid())
   user   User   @relation(fields: [userId], references: [id])
   userId String @unique
-  points Int
+  points Int    @default(1)
 
   @@index([points, userId])
 }
