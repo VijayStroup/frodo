@@ -3,45 +3,33 @@ import { SlashCommandBuilder } from '@discordjs/builders'
 import moment from 'moment-timezone'
 import prisma from '../utils/prisma'
 
-async function setBday(userId, date) {
-  if (userId === null || date === null) return
+async function setBday(discordId, date) {
+  if (discordId === null || date === null) return
 
   try {
-    const user = await prisma.user.findFirst({
+    const user = await prisma.user.upsert({
       where: {
-        discordId: userId
+        discordId: discordId
+      },
+      update: {
+      },
+      create: {
+        discordId: discordId
       }
     })
 
-    if (user === undefined) {
-      const user = await prisma.user.create({
-        data: {
-          discordId: userId
-        }
-      })
-    }
-
-    const birthday = await prisma.birthday.findFirst({
+    const birthday = await prisma.birthday.upsert({
       where: {
-        discordId: userId
+        userId: discordId
+      },
+      update: {
+      },
+      create: {
+        userId: user.id,
+        birthday: date
       }
     })
 
-    if (birthday === undefined) {
-      const user = await prisma.user.update({
-        where: {
-          discordId: userId
-        },
-        data: {
-          birthday: {
-            create: {
-              discordId: userId,
-              birthday: date
-            }
-          }
-        }
-      })
-    }
   } catch (error) {
     return -1
   }
@@ -62,15 +50,13 @@ const Birthday = {
     const day = interaction.options.getString('day')
     const dateFormatted = moment(month + day, 'MM/DD').format('MM/DD')
     const date = new Date(dateFormatted)
-    const userId = interaction.member.user.id
+    const discordId = interaction.member.user.id
     let content = `The inputted date is invalid. Please try again.`
 
     if (dateFormatted !== 'Invalid date') {
-      const check = await setBday(userId, date)
-      if (check === -1)
-        content = `Your birthday has already been set.`
-      else
-        content = `Your birthday has been set for ${dateFormatted}.`
+      const check = await setBday(discordId, date)
+      if (check === -1) content = `Your birthday has already been set.`
+      else content = `Your birthday has been set for ${dateFormatted}.`
     }
 
     await interaction.reply({
