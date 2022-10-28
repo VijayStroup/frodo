@@ -70,7 +70,7 @@ const SetBirthday = {
     try {
       await insertBirthday(discordId, date)
       await interaction.reply({
-        content: 'Birthday set',
+        content: `Birthday set to ${dateFormatted}`,
         ephemeral: true,
       })
     } catch (error) {
