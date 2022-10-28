@@ -32,6 +32,15 @@ const FunReplies = {
         await message.reply('no you')
       else if (loweredMessage === 'we go gym' || !loweredMessage.startsWith('https://tenor.com') && (loweredMessage.includes('jim') || loweredMessage.includes('gym')))
         await message.reply('https://tenor.com/view/we-go-gym-we-go-gym-now-lex-little-we-go-jim-gif-26181704')
+      else if (loweredMessage === 'wock' || !loweredMessage.startsWith('https://tenor.com')) {
+        const coin2 = Math.floor(Math.random() * (3) + 1);
+        if (coin2 === 1)
+          await message.reply('https://media.discordapp.net/attachments/902902561617629286/1034666124094214164/final_6358a583f4d669007a8ebbd1_90266.gif')
+        else if (coin2 === 2)
+          await message.reply('https://tenor.com/view/yachty-wock-poland-gif-26868983')
+        else if (coin2 === 3)
+          await message.reply('https://tenor.com/view/poland-lil-yachty-wock-gif-26874407')
+      }
     }
   }
 }
