@@ -14,16 +14,16 @@ const options: { [key: string]: string | boolean }[] = [
     value: 'Graduate'
   },
   {
-    label: 'Post Graduate',
+    label: 'Alumni',
     emoji: '👴',
-    value: 'PostGraduate'
+    value: 'Alumni'
   }
 ]
 
 const rolesMap: { [key: string]: string } = {
   Undergraduate: 'Undergraduate',
   Graduate: 'Graduate',
-  PostGraduate: 'Post Graduate'
+  Alumni: 'Alumni'
 }
 
 const rolesSet = new Set(Object.keys(rolesMap))
