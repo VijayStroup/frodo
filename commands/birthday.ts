@@ -2,12 +2,13 @@ import type { CommandInteraction, GuildMember, Message } from 'discord.js'
 import { SlashCommandBuilder } from '@discordjs/builders'
 import prisma from '../utils/prisma'
 import moment from 'moment-timezone'
+
 async function getBirthday(discordId: string) {
   const user = await prisma.user.findUnique({
     where: { discordId },
     include: { birthday: true }
   })
-  console.log(user)
+
   if (user) return user.birthday.birthday
   return -1
 }
@@ -39,4 +40,5 @@ const Birthday = {
       })
   }
 }
+
 export default Birthday
