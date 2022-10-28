@@ -24,6 +24,7 @@ model Birthday {
   userId   String   @unique
   birthday DateTime
 
+  @@unique([birthday, userId])
   @@index([birthday, userId])
 }
 
@@ -33,5 +34,6 @@ model Points {
   userId String @unique
   points Int    @default(1)
 
+  @@unique([points, userId])
   @@index([points, userId])
 }
