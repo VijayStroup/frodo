@@ -45,10 +45,10 @@ const SetBirthday = {
   builder: new SlashCommandBuilder()
     .setName('setbirthday')
     .setDescription('Set Your Birthday.')
-    .addStringOption((option) =>
+    .addNumberOption((option) =>
       option.setName('month').setDescription('month').setRequired(true)
     )
-    .addStringOption((option) =>
+    .addNumberOption((option) =>
       option.setName('day').setDescription('day').setRequired(true)
     ),
   async execute(interaction: CommandInteraction, message: Message) {
