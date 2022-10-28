@@ -16,7 +16,7 @@ const Warn = {
     const reason = interaction.options.getString('reason')
 
     await target.send(
-      `You have been warned from ${interaction.member.user.username} for reason ${reason}`
+      `You have been warned from ${interaction.member.user.username} for reason\n${reason}`
     )
 
     await interaction.reply({
