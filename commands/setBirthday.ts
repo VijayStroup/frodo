@@ -52,8 +52,8 @@ const SetBirthday = {
       option.setName('day').setDescription('day').setRequired(true)
     ),
   async execute(interaction: CommandInteraction, message: Message) {
-    const month = interaction.options.getString('month')
-    const day = interaction.options.getString('day')
+    const month = interaction.options.getNumber('month')
+    const day = interaction.options.getNumber('day')
     const discordId = interaction.member.user.id
 
     const dateFormatted = moment(`${month}/${day}`, 'MM/DD').format('MM/DD')
