@@ -3,29 +3,41 @@ import { SlashCommandBuilder } from '@discordjs/builders'
 import moment from 'moment-timezone'
 import prisma from '../utils/prisma'
 
+async function printALL() {
+  const birthday = await prisma.birthday.findMany({})
+
+  console.log(birthday)
+}
+
 async function updateBday(userId, date) {
   if (userId === null || date === null) return
-  const user = await prisma.user.upsert({
-    where: {
-      discordId: userId
-    },
-    update: {
-      birthday: {
-        update: {
-          birthday: date
-        }
+
+  try {
+    const user = await prisma.user.upsert({
+      where: {
+        discordId: userId
+      },
+      update: {},
+      create: {
+        discordId: userId
       }
-    },
-    create: {
-      discordId: userId,
-      birthday: {
-        create: {
-          discordId: userId,
-          birthday: date,
-        }
+    })
+
+    const birthday = await prisma.birthday.upsert({
+      where: {
+        userId: user.id
+      },
+      update: {
+        birthday: date
+      },
+      create: {
+        userId: user.id,
+        birthday: date
       }
-    }
-  })
+    })
+  } catch (error) {
+    return -1
+  }
 }
 
 const BirthdayUpdate = {
@@ -47,11 +59,12 @@ const BirthdayUpdate = {
     const day = interaction.options.getString('day')
     const dateFormatted = moment(month + day, 'MM/DD').format('MM/DD')
     const date = new Date(dateFormatted)
-    const userId = target.user.id
+    const discordId = target.user.id
     let content = `The inputted date is invalid. Please try again.`
 
     if (dateFormatted !== 'Invalid date') {
-      await updateBday(userId, date)
+      const check = await updateBday(discordId, date)
+      printALL()
       content = `The birthday for ${target.user.username} has been updated to ${dateFormatted}.`
     }
 

@@ -13,15 +13,26 @@ model User {
   id        String    @id @default(cuid())
   discordId String    @unique
   birthday  Birthday?
+  points    Points?
 
   @@index([discordId])
 }
 
 model Birthday {
-  id        String   @id @default(cuid())
-  user      User     @relation(fields: [id], references: [id])
-  discordId String   @unique
-  birthday  DateTime
+  id          String   @id @default(cuid())
+  user        User     @relation(fields: [userId], references: [id])
+  userId      String   @unique
+  birthday    DateTime
+  setBirthday Boolean?
 
-  @@index([birthday])
+  @@index([birthday, userId])
+}
+
+model Points {
+  id     String @id @default(cuid())
+  user   User   @relation(fields: [userId], references: [id])
+  userId String @unique
+  points Int
+
+  @@index([points, userId])
 }
