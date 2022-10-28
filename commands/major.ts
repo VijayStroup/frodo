@@ -58,6 +58,11 @@ const options: { [key: string]: string | boolean }[] = [
     value: 'MechanicalEngineering'
   },
   {
+    label: 'Political Science',
+    emoji: '🤡',
+    value: 'PoliticalScience'
+  },
+  {
     label: 'Psychology',
     emoji: '🤯',
     value: 'Psychology'
@@ -81,6 +86,7 @@ const rolesMap: { [key: string]: string } = {
   Mathematics: 'Mathematics',
   MechanicalEngineering: 'Mechanical Engineering',
   Psychology: 'Psychology',
+  PoliticalScience: 'Political Science',
   WomenStudies: 'Women Studies'
 }
 
