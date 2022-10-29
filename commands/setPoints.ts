@@ -9,18 +9,16 @@ async function insertPoints(discordId: string, points: number) {
       include: { points: true }
     })
 
-    if (!user) {
-      throw new Error(`Invalid user, user does not exist!`)
-    } else {
-      await prisma.points.update({
-        data: {
-          points: points
-        },
-        where: {
-          userId: user.id
-        }
-      })
-    }
+    if (!user) throw new Error(`Invalid user, user does not exist!`)
+
+    await prisma.points.update({
+      data: {
+        points: points
+      },
+      where: {
+        userId: user.id
+      }
+    })
   } catch (error) {
     throw new Error(error)
   }
