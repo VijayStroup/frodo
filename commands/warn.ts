@@ -15,14 +15,21 @@ const Warn = {
     const target = interaction.options.getMember('user') as GuildMember
     const reason = interaction.options.getString('reason')
 
-    await target.send(
-      `You have been warned from ${interaction.member.user.username} for reason\n${reason}`
-    )
+    try {
+      await target.send(
+        `You have been warned from ${interaction.member.user.username} for reason\n${reason}`
+      )
 
-    await interaction.reply({
-      content: `You have warned ${target.user.username} for reason ${reason}.`,
-      ephemeral: true
-    })
+      await interaction.reply({
+        content: `You have warned ${target.user.username} for reason ${reason}.`,
+        ephemeral: true
+      })
+    } catch (e) {
+      await interaction.reply({
+        content: `Failed to warn ${target.user.username}.`,
+        ephemeral: true
+      })
+    }
   }
 }
 
