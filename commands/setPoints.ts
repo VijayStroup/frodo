@@ -1,4 +1,4 @@
-import type { CommandInteraction, Message } from 'discord.js'
+import type { CommandInteraction, Message, GuildMember } from 'discord.js'
 import { SlashCommandBuilder } from '@discordjs/builders'
 import prisma from '../utils/prisma'
 
@@ -12,13 +12,9 @@ async function insertPoints(
       where: { discordId },
       include: { points: true }
     })
-    console.log(user)
+
     if (!user) {
-      await interaction.reply({
-        content: `Invalid user, user does not exist!`,
-        ephemeral: true
-      })
-      return
+      throw new Error(`Invalid user, user does not exist!`)
     } else {
       await prisma.points.update({
         data: {
@@ -45,7 +41,8 @@ const SetPoints = {
       option.setName('points').setDescription('points').setRequired(true)
     ),
   async execute(interaction: CommandInteraction, message: Message) {
-    const discordId = interaction.member.user.id
+    const target = interaction.options.getMember('user') as GuildMember
+    const discordId = target.user.id
     const pointsAmount = interaction.options.getNumber('points')
     try {
       await insertPoints(discordId, pointsAmount, interaction)
