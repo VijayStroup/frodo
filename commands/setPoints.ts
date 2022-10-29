@@ -36,12 +36,12 @@ const SetPoints = {
     ),
   async execute(interaction: CommandInteraction, message: Message) {
     const target = interaction.options.getMember('user') as GuildMember
-    const discordId = target.user.id
     const pointsAmount = interaction.options.getNumber('points')
+
     try {
-      await insertPoints(discordId, pointsAmount)
+      await insertPoints(target.id, pointsAmount)
       await interaction.reply({
-        content: `User has points updated to ${pointsAmount}`,
+        content: `${target.user}'s points updated to ${pointsAmount}`,
         ephemeral: true
       })
     } catch (error) {
