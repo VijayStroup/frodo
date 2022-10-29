@@ -2,11 +2,7 @@ import type { CommandInteraction, Message, GuildMember } from 'discord.js'
 import { SlashCommandBuilder } from '@discordjs/builders'
 import prisma from '../utils/prisma'
 
-async function insertPoints(
-  discordId: string,
-  points: number,
-  interaction: CommandInteraction
-) {
+async function insertPoints(discordId: string, points: number) {
   try {
     const user = await prisma.user.findUnique({
       where: { discordId },
@@ -45,7 +41,7 @@ const SetPoints = {
     const discordId = target.user.id
     const pointsAmount = interaction.options.getNumber('points')
     try {
-      await insertPoints(discordId, pointsAmount, interaction)
+      await insertPoints(discordId, pointsAmount)
       await interaction.reply({
         content: `User has points updated to ${pointsAmount}`,
         ephemeral: true
