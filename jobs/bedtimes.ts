@@ -1,5 +1,5 @@
 import type { TextChannel } from 'discord.js'
-import 'moment-timezone';
+import 'moment-timezone'
 import moment from 'moment'
 
 const bedtimes: { [key: number]: string[] } = {
