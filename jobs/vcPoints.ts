@@ -13,8 +13,8 @@ const VcPoints = {
       const members = (channel as VoiceChannel).members
 
       // add points to each member
-      try {
-        for (const [_, member] of members) {
+      for (const [_, member] of members) {
+        try {
           await prisma.user.upsert({
             where: { discordId: member.id },
             create: {
@@ -29,9 +29,9 @@ const VcPoints = {
               }
             }
           })
+        } catch (error) {
+          console.log(error)
         }
-      } catch (error) {
-        console.log(error)
       }
     }
   }
