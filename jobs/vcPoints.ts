@@ -19,12 +19,12 @@ const VcPoints = {
             where: { discordId: member.id },
             create: {
               discordId: member.id,
-              points: { create: { points: 5 } }
+              points: { create: { points: 1 } }
             },
             update: {
               points: {
                 update: {
-                  points: { increment: 5 }
+                  points: { increment: 1 }
                 }
               }
             }
