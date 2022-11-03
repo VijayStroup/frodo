@@ -4,7 +4,8 @@ import prisma from '../utils/prisma'
 
 const VcPoints = {
   cronPattern: '*/5 * * * *', // every 5 minutes
-  async execute() {
+  channel: '💬｜general',
+  async execute(_) {
     // get all vc channels
     const vcChannels = client.channels.cache.filter((channel) => channel.type === 'GUILD_VOICE')
 
