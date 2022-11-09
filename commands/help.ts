@@ -19,12 +19,15 @@ const Help = {
         'Below is a list of all available commands and their descriptions.'
       )
       .setTimestamp()
+
+    const fields = []
     for (const key in commands) {
       if (commands[key].members) continue
       else if (commands[key].roles && commands[key].roles.includes('Admin'))
-        commandsEmbed.addField(key, `${commands[key].builder.description}*`)
-      else commandsEmbed.addField(key, commands[key].builder.description)
+        fields.push({ name: key, value: `${commands[key].builder.description}*` })
+      else fields.push({ name: key, value: commands[key].builder.description })
     }
+    commandsEmbed.addFields(fields)
 
     await interaction.reply({ embeds: [commandsEmbed], ephemeral: true })
   }

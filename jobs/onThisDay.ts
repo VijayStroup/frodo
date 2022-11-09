@@ -24,9 +24,9 @@ const OnThisDay = {
     const factEmbed = new MessageEmbed()
       .setColor(colors.blue)
       .setTitle(`${d.getUTCMonth() + 1}/${d.getUTCDate()}/${event.year}`)
-      .setAuthor('On This Day')
+      .setAuthor({ name: 'On This Day' })
       .setThumbnail('https://i.imgur.com/B6QSudr.png')
-      .setDescription(event.description)
+      .setDescription(event.description.splice(0, 4096))
       .setTimestamp()
 
     const links = new MessageActionRow()

@@ -32,16 +32,18 @@ const Top = {
 
     const top10 = await getTopPoints()
 
+    const fields = []
     for (const user of top10) {
       let fetchUser = await client.users.fetch(
         `${user.user.discordId}`
       )
-      pointsEmbed.addField(
-        `${fetchUser.username}#${fetchUser.discriminator}`,
-        `${user.points} ${user.points === 1 ? 'point' : 'points'}`,
-        true
-      )
+      fields.push({
+        name: `${fetchUser.username}#${fetchUser.discriminator}`,
+        value: `${user.points} ${user.points === 1 ? 'point' : 'points'}`,
+        inline: true
+      })
     }
+    pointsEmbed.addFields(fields)
 
     await interaction.reply({
       embeds: [pointsEmbed],
