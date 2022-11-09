@@ -26,7 +26,7 @@ const OnThisDay = {
       .setTitle(`${d.getUTCMonth() + 1}/${d.getUTCDate()}/${event.year}`)
       .setAuthor({ name: 'On This Day' })
       .setThumbnail('https://i.imgur.com/B6QSudr.png')
-      .setDescription(event.description.splice(0, 4096))
+      .setDescription(event.description.slice(4096))
       .setTimestamp()
 
     const links = new MessageActionRow()
