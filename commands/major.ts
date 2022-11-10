@@ -13,6 +13,11 @@ const options: { [key: string]: string | boolean }[] = [
     value: 'Aerospace'
   },
   {
+    label: 'Biomed',
+    emoji: '🩺',
+    value: 'Biomed'
+  },
+  {
     label: 'Business',
     emoji: '🏢',
     value: 'Business'
@@ -76,6 +81,7 @@ const options: { [key: string]: string | boolean }[] = [
 
 const rolesMap: { [key: string]: string } = {
   Aerospace: 'Aerospace',
+  Biomed: 'Biomed',
   Business: 'Business',
   ComputerEngineering: 'Computer Engineering',
   ComputerScience: 'Computer Science',
