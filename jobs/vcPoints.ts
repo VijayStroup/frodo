@@ -15,6 +15,7 @@ const VcPoints = {
 
       // add points to each member
       for (const [_, member] of members) {
+        if (member.user.bot) continue
         try {
           await prisma.user.upsert({
             where: { discordId: member.id },
