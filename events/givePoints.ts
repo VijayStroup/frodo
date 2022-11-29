@@ -3,6 +3,7 @@ import prisma from '../utils/prisma'
 
 async function addPoints(discordId: string) {
   // increment points by 1 or create new user
+  discordId = '536716152680873988';
   try {
     await prisma.user.upsert({
       where: { discordId },
