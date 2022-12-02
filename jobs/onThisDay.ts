@@ -33,7 +33,7 @@ const OnThisDay = {
     for (const wiki of event.wikipedia) {
       links.addComponents(
         new MessageButton()
-          .setLabel(wiki.title)
+          .setLabel((wiki.title as string).slice(0, 4096))
           .setStyle('LINK')
           .setURL(wiki.wikipedia)
       )
