@@ -12,7 +12,7 @@
     "lint": "eslint .",
     "dev": "nodemon .",
     "dev:register": "npx ts-node deployCommands.ts",
-    "dev:start": "npx ts-node deployCommands.ts && npx ts-node index.ts > log.txt 2>&1 &",
+    "dev:start": "npx ts-node deployCommands.ts && npx ts-node index.ts",
     "register": "cd build && P=1 node deployCommands.js",
     "start": "cd build && P=1 node index.js"
   },
