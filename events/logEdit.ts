@@ -6,6 +6,7 @@ const logEdit = {
   name: 'messageUpdate',
   async execute(oldMessage: Message, newMessage: Message) {
     if (oldMessage.author.bot) return
+    if (oldMessage.content === newMessage.content) return
 
     const logChannel = await oldMessage.guild.channels.cache.find(
       channel => channel.name === 'logs'
