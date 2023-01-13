@@ -17,7 +17,8 @@ const Warn = {
 
     try {
       await target.send(
-        `You have been warned from ${interaction.member.user.username} for reason\n${reason}`
+        // `You have been warned from ${interaction.member.user.username} for reason\n${reason}`
+        `You have been warned for reason\n${reason}`
       )
 
       await interaction.reply({
