@@ -12,3 +12,4 @@ A discord bot to help facilitate operations in the Knights Discord.
 | Syntax | Description |
 | ----------- | ----------- |
 | once | Boolean to determine if event should fire on startup only one time. |
+
