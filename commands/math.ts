@@ -1,6 +1,6 @@
 import type { CommandInteraction } from 'discord.js'
 import { SlashCommandBuilder } from '@discordjs/builders'
-import mathjs from 'mathjs'
+import { evaluate } from 'mathjs'
 
 const Math = {
   builder: new SlashCommandBuilder()
@@ -13,7 +13,7 @@ const Math = {
     const expression = interaction.options.getString('expression')
 
     try {
-      const result = mathjs.evaluate(expression)
+      const result = evaluate(expression)
       await interaction.reply(`${expression} = ${result}`)
     }
     catch (e) {
