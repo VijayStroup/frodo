@@ -1,24 +1,35 @@
-import type { CommandInteraction } from 'discord.js'
-import { SlashCommandBuilder } from '@discordjs/builders'
-import axios from 'axios'
+import {
+  InteractionResponseFlags,
+  InteractionResponseType
+} from 'discord-interactions'
+import JsonResponse from '../utils/json'
 
 const url = 'https://dog.ceo/api/breeds/image/random'
 
-const Dog = {
-  builder: new SlashCommandBuilder()
-    .setName('dog')
-    .setDescription('get dog pictures'),
-  channels: ['🐕｜pets'],
-  async execute(interaction: CommandInteraction) {
-    const res = await axios.get(url)
+export const Dog = {
+  name: 'dog',
+  description: 'get dog picture',
+  async execute(interaction) {
+    const res = await fetch(url)
 
     if (res.status !== 200) {
-      console.error(`[${new Date().toString()}] Error getting dog of the day`)
-      return
+      console.error(`[${new Date().toString()}] Error getting dog`)
+      return new JsonResponse({
+        type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+        data: {
+          content: 'Error getting dog.',
+          flags: InteractionResponseFlags.EPHEMERAL
+        }
+      })
     }
 
-    await interaction.reply({ files: [res.data.message] })
+    const data = await res.json()
+
+    return new JsonResponse({
+      type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+      data: {
+        content: data.message
+      }
+    })
   }
 }
-
-export default Dog

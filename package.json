@@ -1,51 +1,12 @@
 {
-  "name": "ty",
-  "version": "1.0.0",
-  "description": "Discord Bot for Knights Discord Server",
-  "engines": {
-    "node": "16.16.0"
-  },
-  "main": "index.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsc",
-    "lint": "eslint .",
-    "dev": "nodemon .",
-    "dev:register": "npx ts-node deployCommands.ts",
-    "dev:start": "npx ts-node deployCommands.ts && npx ts-node index.ts",
-    "register": "cd build && P=1 node deployCommands.js",
-    "start": "cd build && P=1 node index.js"
+    "dev": "wrangler dev",
+    "register": "bun register.ts",
+    "deploy": "wrangler deploy"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/VijayStroup/ty.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/VijayStroup/ty/issues"
-  },
-  "homepage": "https://github.com/VijayStroup/ty#readme",
-  "dependencies": {
-    "@discordjs/builders": "^0.6.0",
-    "@discordjs/rest": "^0.1.0-canary.0",
-    "@prisma/client": "^4.4.0",
-    "axios": "^0.24.0",
-    "cron": "^1.8.2",
-    "discord-api-types": "^0.22.0",
-    "discord.js": "^13.3.1",
-    "dotenv": "^10.0.0",
-    "mathjs": "^11.8.0",
-    "moment-timezone": "^0.5.33"
-  },
+  "dependencies": { "discord-interactions": "^4.1.0", "itty-router": "^5.0.18" },
   "devDependencies": {
-    "@types/cron": "^2.0.0",
-    "@types/node": "^18.7.11",
-    "eslint": "^7.32.0",
-    "nodemon": "^2.0.12",
-    "prisma": "^4.2.1",
-    "ts-node": "^10.9.1",
-    "typescript": "^4.7.4"
+    "dotenv": "^16.4.7",
+    "wrangler": "^3.101.0"
   }
 }
